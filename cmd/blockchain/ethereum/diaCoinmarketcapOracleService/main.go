@@ -28,7 +28,7 @@ func main() {
 	/*
 	 * Read in Oracle address
 	 */
-	var deployedContract = flag.String("deployedContract", "", "Address of the deployed oracle contract")
+	var deployedContract = flag.String("deployedContract", "0xd6d509322fED18f4D5F063EE0dc71c7786c1b1dd", "Address of the deployed oracle contract")
 	var numCoins = flag.Int("numCoins", 50, "Number of coins to push with the oracle")
 	flag.Parse()
 
@@ -36,7 +36,7 @@ func main() {
 	 * Read secrets for unlocking the ETH account
 	 */
 	var lines []string
-	file, err := os.Open("/run/secrets/oracle_keys") // Read in key information
+	file, err := os.Open("run/secrets/oracle_keys") // Read in key information
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -58,7 +58,7 @@ func main() {
 	 * Setup connection to contract, deploy if necessary
 	 */
 
-	conn, err := ethclient.Dial("http://159.69.120.42:8545/")
+	conn, err := ethclient.Dial("https://rpc-mumbai.matic.today")
 	if err != nil {
 		log.Fatalf("Failed to connect to the Ethereum client: %v", err)
 	}
@@ -132,7 +132,7 @@ func getTopCoinsFromCoinmarketcap(numCoins int) ([]string, error) {
 	 * Read secrets for the CMC API key
 	 */
 	var lines []string
-	file, err := os.Open("/run/secrets/Coinmarketcap-API.key") // Read in key information
+	file, err := os.Open("run/secrets/Coinmarketcap-API.key") // Read in key information
 	if err != nil {
 		log.Fatal(err)
 	}
